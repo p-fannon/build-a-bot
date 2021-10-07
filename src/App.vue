@@ -3,9 +3,14 @@
     <nav>
       <ul>
         <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'Home'}">
+          <router-link active-class="foo" class="nav-link" :to="{name: 'Home'}" exact>
             <img class="logo" src="./assets/build-a-bot-logo.png" />
             Build-a-Bot
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link active-class="foo" class="nav-link" :to="{name: 'Build'}" exact>
+            Build
           </router-link>
         </li>
       </ul>
@@ -66,5 +71,12 @@ ul {
 .nav-link {
   text-decoration: none;
   color: inherit;
+}
+/* Reserved class for vue router
+.router-link-active {
+  color: white;
+} */
+.foo {
+  color: white;
 }
 </style>
