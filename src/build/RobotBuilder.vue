@@ -69,6 +69,7 @@
 </template>
 
 <script>
+/* eslint-disable no-restricted-globals */
 import availableParts from '../data/parts';
 import createdHookMixin from './created-hook-mixin';
 import PartSelector from './PartsSelector.vue';
@@ -76,9 +77,19 @@ import CollapsibleSection from '../shared/CollapsibleSection.vue';
 
 export default {
   name: 'RobotBuilder',
+  beforeRouteLeave(to, from, next) {
+    if (this.addedToCart) {
+      next(true);
+    } else {
+      // eslint-disable-next-line no-alert
+      const response = confirm('You have not added your robot to your cart, are you sure you want to leave?');
+      next(response);
+    }
+  },
   components: { PartSelector, CollapsibleSection },
   data() {
     return {
+      addedToCart: false,
       availableParts,
       cart: [],
       selectedRobot: {
@@ -108,6 +119,7 @@ export default {
           + robot.rightArm.cost
           + robot.base.cost;
       this.cart.push({ ...robot, cost });
+      this.addedToCart = true;
     },
   },
 };
